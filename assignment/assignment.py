@@ -111,5 +111,37 @@ val_pred
 act_value = val_pred["imdb_score"]
 pred_value = val_pred["y_pred"]
 
+
+# STEP 4
 df_pred_values = spark.createDataFrame(val_pred)
 df_pred_values.show()
+
+# Set your S3 bucket and prefix
+bucket = 'dmacademy-course-assets'
+prefix = 'vlerick/Inaki_Peeters/'
+
+# Write the DataFrame to S3 in JSON lines format
+df_pred_values.write.json(bucket + '/' + prefix, mode='append', line=True)
+
+
+
+# STEP 5
+#df_pred_values.write.json("s3a://dmacademy-course-assets/vlerick/Inaki_Peeters/")
+
+#import boto3
+
+#file_name = 'pred_Inaki_Peeters.json'
+
+# Set your S3 bucket and prefix
+#bucket = 'dmacademy-course-assets'
+#prefix = 'vlerick/Inaki_peeters/'
+
+# Write the DataFrame to a file in JSON lines format
+#df_pred_values.to_json(filename, orient='records', lines=True)
+
+# Upload the file to S3
+#s3 = boto3.client('s3')
+#s3.upload_file(file_name, bucket, prefix + filename)
+
+
+
