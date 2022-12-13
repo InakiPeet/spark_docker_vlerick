@@ -1,26 +1,21 @@
 FROM python:3.10.4
 
-WORKDIR /app
-
-COPY . /app
-
-# Create non-root user
-RUN useradd -ms/bin/bash python-api
-USER python-api
-
-RUN pip install -r requirements.txt
-
 RUN apt-get update && \
     apt-get install -y default-jdk && \
     apt-get install -y ant && \
     apt-get clean;
 
-# Make port 80 available to the world outside this container
+RUN useradd -ms/bin/bash python-api
+USER python-api
+
+WORKDIR /app
+
+COPY . /app
+
+RUN pip install -r requirements.txt
+
 EXPOSE 8080
 
-# Define environment variable
-ENV NAME World
-
-# Run app.py when the container launches
 ENTRYPOINT ["python"]
+
 CMD ["assignment.py"]
