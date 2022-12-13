@@ -4,6 +4,10 @@ WORKDIR /app
 
 COPY . /app
 
+# Create non-root user
+RUN useradd -ms/bin/bash python-api
+USER python-api
+
 RUN pip install -r requirements.txt
 
 RUN apt-get update && \
