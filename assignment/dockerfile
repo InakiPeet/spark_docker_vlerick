@@ -8,9 +8,9 @@ RUN apt-get update && \
 RUN useradd -ms/bin/bash python-api
 USER python-api
 
-WORKDIR /app
+WORKDIR /repo/
 
-COPY . /app
+COPY . /repo/
 
 RUN pip install -r requirements.txt
 
