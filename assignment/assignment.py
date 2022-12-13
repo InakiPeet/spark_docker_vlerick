@@ -23,7 +23,6 @@ df_after = dfafter.toPandas()
 
 # THIS IS THE MODEL FOR THE IMDB CASE
 
-
 import pandas as pd 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -33,19 +32,12 @@ from sklearn.model_selection import train_test_split, KFold
 import statsmodels.api as sm
 from sklearn.metrics import r2_score, mean_absolute_error, roc_auc_score
 from sklearn.ensemble import RandomForestRegressor
-import tensorflow as tf
-from tensorflow import keras
 from sklearn import preprocessing
 from sklearn.model_selection import cross_validate
-from livelossplot import PlotLossesKeras
 from sklearn import metrics
-from xgboost import XGBClassifier
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.linear_model import LogisticRegression
 from tabulate import tabulate
-from keras.callbacks import EarlyStopping
 from sklearn.linear_model import Lasso
+
 # merge the 2 dataframes
 # we merge on movie title as this is the only common variable in the two datasets
 df = pd.merge(df_pre, df_after,how='inner', on='movie_title') 
@@ -118,30 +110,10 @@ df_pred_values.show()
 
 # Set your S3 bucket and prefix
 bucket = 'dmacademy-course-assets'
-prefix = 'vlerick/Inaki_Peeters/'
+prefix = 'vlerick/Inak_Peet/'
 
 # Write the DataFrame to S3 in JSON lines format
-df_pred_values.write.json(bucket + '/' + prefix, mode='append', line=True)
-
-
-
-# STEP 5
-#df_pred_values.write.json("s3a://dmacademy-course-assets/vlerick/Inaki_Peeters/")
-
-#import boto3
-
-#file_name = 'pred_Inaki_Peeters.json'
-
-# Set your S3 bucket and prefix
-#bucket = 'dmacademy-course-assets'
-#prefix = 'vlerick/Inaki_peeters/'
-
-# Write the DataFrame to a file in JSON lines format
-#df_pred_values.to_json(filename, orient='records', lines=True)
-
-# Upload the file to S3
-#s3 = boto3.client('s3')
-#s3.upload_file(file_name, bucket, prefix + filename)
+df_pred_values.write.json(f"s3a://{bucket}/{prefix}/", mode="overwrite")
 
 
 
