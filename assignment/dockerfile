@@ -8,11 +8,11 @@ RUN apt-get update && \
 RUN useradd -ms/bin/bash python-api
 USER python-api
 
-WORKDIR /repo/
+WORKDIR /repo
 
-COPY . /repo/
+COPY . /repo
 
-RUN pip install -r requirements.txt
+RUN python -m pip install -r requirements.txt
 
 EXPOSE 8080
 
